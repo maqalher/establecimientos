@@ -12,8 +12,9 @@ crossorigin=""/>
 integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
 crossorigin="">
 
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/3.2.1/geosearch.css" integrity="sha512-H7CJNH3Ey/KnLNDRRjnK+bn8XCfJPYhTqXNzsEzVVjP/5xyVPAzusz0eSgnStzK2QF6LaytseQelTezUDmj0og==" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.8.1/dropzone.css" integrity="sha512-7uSoC3grlnRktCWoO4LjHMjotq8gf9XDFQerPuaph+cqR7JC9XKGdvN+UwZMC14aAaBDItdRj3DcSDs4kMWUgg==" crossorigin="anonymous" />
 
 
 @endsection
@@ -81,7 +82,7 @@ href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
 
                 </fieldset>
 
-                <fieldset class="border p-4">
+                <fieldset class="border p-4 mt-5">
                     <legend class="text-primary">Ubicacíon</legend>
 
                     <div class="form-group">
@@ -139,6 +140,86 @@ href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
                     <input type="hidden" id="lng" name="lng" value="{{old('lng')}}">
 
                 </fieldset>
+
+                <fieldset class="border p-4 mt-5">
+                    <legend  class="text-primary">Información Establecimiento: </legend>
+                        <div class="form-group">
+                            <label for="nombre">Teléfono</label>
+                            <input
+                                type="tel"
+                                class="form-control @error('telefono')  is-invalid  @enderror"
+                                id="telefono"
+                                placeholder="Teléfono Establecimiento"
+                                name="telefono"
+                                value="{{ old('telefono') }}"
+                            >
+
+                                @error('telefono')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="nombre">Descripción</label>
+                            <textarea
+                                class="form-control  @error('descripcion')  is-invalid  @enderror"
+                                name="descripcion"
+                            >{{ old('descripcion') }}</textarea>
+
+                                @error('descripcion')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombre">Hora Apertura:</label>
+                            <input
+                                type="time"
+                                class="form-control @error('apertura')  is-invalid  @enderror"
+                                id="apertura"
+                                name="apertura"
+                                value="{{ old('apertura') }}"
+                            >
+                            @error('apertura')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombre">Hora Cierre:</label>
+                            <input
+                                type="time"
+                                class="form-control @error('cierre')  is-invalid  @enderror"
+                                id="cierre"
+                                name="cierre"
+                                value="{{ old('cierre') }}"
+                            >
+                            @error('cierre')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>
+                </fieldset>
+
+                <fieldset class="border p-4 mt-5">
+                    <legend  class="text-primary">Información Establecimiento: </legend>
+                        <div class="form-group">
+                           <label for="imagenes">Imagenes</label>
+                           <div id="dropzone" class="dropzone from-control">
+                        </div>
+                </fieldset>
+
+                <input type="hidden" id="uuid" name="uuid" value="{{ Str::uuid()->toString() }}">
+                <input type="submit" class="btn btn-primary mt-3 d-block" value="Registrar Establecimiento">
             </form>
         </div>
 
@@ -164,9 +245,8 @@ crossorigin=""></script>
 integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
 crossorigin=""></script>
 
-{{-- <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/3.2.1/geosearch.umd.js" integrity="sha512-fxMi4KPmEusX79+0hZgNwVP4LeBXMf45loYW3ueCAFw8tBHPdsPiFjchrHADHcORgurJIW1tqHSDJi2n1PkxsA==" crossorigin="anonymous"></script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.8.1/dropzone.js" integrity="sha512-8Lox6Z3z1oZK4c0m05K84veEwiziEQvLQWFwz3y3juJz+HVXJ2HK6mRoQur23y9I3Bm2iMMAU/FngLqbwDs/+Q==" crossorigin="anonymous" defer></script>
 
 @endsection
