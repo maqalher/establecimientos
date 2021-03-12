@@ -12,6 +12,9 @@ crossorigin=""/>
 integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
 crossorigin="">
 
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+
 
 @endsection
 
@@ -160,6 +163,10 @@ crossorigin=""></script>
 <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
 integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
 crossorigin=""></script>
+
+{{-- <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/3.2.1/geosearch.umd.js" integrity="sha512-fxMi4KPmEusX79+0hZgNwVP4LeBXMf45loYW3ueCAFw8tBHPdsPiFjchrHADHcORgurJIW1tqHSDJi2n1PkxsA==" crossorigin="anonymous"></script>
+
 
 
 @endsection

@@ -49948,9 +49948,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// import
-// import { OpenStreetMapProvider } from 'leaflet-geosearch';
-// const provider = new OpenStreetMapProvider();
+var provider = new GeoSearch.OpenStreetMapProvider();
 document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('#mapa')) {
     var reubicarPin = function reubicarPin(marker) {
@@ -49972,36 +49970,31 @@ document.addEventListener('DOMContentLoaded', function () {
           llenarInputs(resultado);
         });
       });
-    }; // function buscarDireccion(e) {
-    //     if (e.target.value.length > 10) {
-    //         provider.search({ query: e.target.value + 'Pachuca MX' })
-    //             .then(resultado => {
-    //                 if (resultado) { // eviter error al eviter null
-    //                     // Limpara los pines previos
-    //                     markers.clearLayers();
-    //                     // Reverse Geocoding, cuando el usuario reubica el pin
-    //                     geocodeService.reverse().latlng(resultado[0].bounds[0], 16).run(function (error, resultado) {
-    //                         // llenar los input
-    //                         llenarInputs(resultado);
-    //                         // centrar el mapa
-    //                         map.setView(resultado.latlng);
-    //                         // Agregar el Pin
-    //                         marker = new L.marker([lat, lng], {
-    //                             draggable: true, // mover pin
-    //                             autoPan: true // mover cuadro
-    //                         }).addTo(mapa);
-    //                         // asignar el contenedro de markers el nuevo pin
-    //                         markers.addLayer(marker);
-    //                         // Mover el pin
-    //                         reubicarPin(marker);
-    //                     })
-    //                 }
-    //             }).catch(error => {
-    //                 console.log(error);
-    //             })
-    //     }
-    // }
+    };
 
+    var buscarDireccion = function buscarDireccion(e) {
+      if (e.target.value.length > 5) {
+        provider.search({
+          query: e.target.value + ' Pachuca MX'
+        }).then(function (resp) {
+          if (resp[0]) {
+            markers.clearLayers();
+            geocodeService.reverse().latlng(resp[0].bounds[0], 16).run(function (error, result) {
+              llenarInputs(result);
+              mapa.setView(result.latlng);
+              marker = new L.marker(result.latlng, {
+                draggable: true,
+                autoPan: true
+              }).addTo(mapa);
+              markers.addLayer(marker);
+              marker.bindPopup(result.address.LongLabel);
+              marker.openPopup();
+              reubicarPin(marker);
+            });
+          }
+        })["catch"](console.error);
+      }
+    };
 
     var llenarInputs = function llenarInputs(resultado) {
       // console.log(resultado);
@@ -50013,9 +50006,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var lat = 20.666332695977;
     var lng = -103.392177745699;
-    var mapa = L.map('mapa').setView([lat, lng], 16); // Elimiar pines previos
-    // let markers = new L.FeatureGroup().add(mapa); // Crea capa para los pines
+    var mapa = L.map('mapa').setView([lat, lng], 16); // Delete previous markers
 
+    var markers = new L.FeatureGroup().addTo(mapa);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapa);
@@ -50027,13 +50020,13 @@ document.addEventListener('DOMContentLoaded', function () {
       autoPan: true // mover cuadro
 
     }).addTo(mapa); // Agregar el pin a la capa
-    // markers.addLayer(marker);
-    // Geocode Service
+
+    markers.addLayer(marker); // Geocode Service
 
     var geocodeService = L.esri.Geocoding.geocodeService(); // Buscador direcciones
-    // const buscador = document.querySelector('#formbuscador');
-    // buscador.addEventListener('blur', buscarDireccion);
 
+    var buscador = document.querySelector('#formbuscador');
+    buscador.addEventListener('blur', buscarDireccion);
     reubicarPin(marker);
   }
 });

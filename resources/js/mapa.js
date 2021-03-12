@@ -1,6 +1,4 @@
-// import
-// import { OpenStreetMapProvider } from 'leaflet-geosearch';
-// const provider = new OpenStreetMapProvider();
+const provider = new GeoSearch.OpenStreetMapProvider();
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -10,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mapa = L.map('mapa').setView([lat, lng], 16);
 
-        // Elimiar pines previos
-        // let markers = new L.FeatureGroup().add(mapa); // Crea capa para los pines
+        // Delete previous markers
+        let markers = new L.FeatureGroup().addTo(mapa)
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -26,14 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }).addTo(mapa);
 
         // Agregar el pin a la capa
-        // markers.addLayer(marker);
+        markers.addLayer(marker);
 
         // Geocode Service
         const geocodeService = L.esri.Geocoding.geocodeService();
 
         // Buscador direcciones
-        // const buscador = document.querySelector('#formbuscador');
-        // buscador.addEventListener('blur', buscarDireccion);
+        const buscador = document.querySelector('#formbuscador');
+        buscador.addEventListener('blur', buscarDireccion);
 
         reubicarPin(marker);
 
@@ -65,44 +63,41 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // function buscarDireccion(e) {
+        function buscarDireccion(e) {
 
-        //     if (e.target.value.length > 10) {
-        //         provider.search({ query: e.target.value + 'Pachuca MX' })
-        //             .then(resultado => {
-        //                 if (resultado) { // eviter error al eviter null
+            if (e.target.value.length > 5) {
+                provider
+                    .search({ query: e.target.value + ' Pachuca MX' })
+                    .then(resp => {
+                        if (resp[0]) {
+                            markers.clearLayers()
 
-        //                     // Limpara los pines previos
-        //                     markers.clearLayers();
+                            geocodeService
+                                .reverse()
+                                .latlng(resp[0].bounds[0], 16)
+                                .run((error, result) => {
 
-        //                     // Reverse Geocoding, cuando el usuario reubica el pin
-        //                     geocodeService.reverse().latlng(resultado[0].bounds[0], 16).run(function (error, resultado) {
+                                    llenarInputs(result);
 
-        //                         // llenar los input
-        //                         llenarInputs(resultado);
+                                    mapa.setView(result.latlng)
 
-        //                         // centrar el mapa
-        //                         map.setView(resultado.latlng);
+                                    marker = new L.marker(result.latlng, {
+                                        draggable: true,
+                                        autoPan: true,
+                                    }).addTo(mapa)
 
-        //                         // Agregar el Pin
-        //                         marker = new L.marker([lat, lng], {
-        //                             draggable: true, // mover pin
-        //                             autoPan: true // mover cuadro
-        //                         }).addTo(mapa);
+                                    markers.addLayer(marker)
 
-        //                         // asignar el contenedro de markers el nuevo pin
-        //                         markers.addLayer(marker);
+                                    marker.bindPopup(result.address.LongLabel)
+                                    marker.openPopup()
 
-        //                         // Mover el pin
-        //                         reubicarPin(marker);
-
-        //                     })
-        //                 }
-        //             }).catch(error => {
-        //                 console.log(error);
-        //             })
-        //     }
-        // }
+                                    reubicarPin(marker)
+                                })
+                        }
+                    })
+                    .catch(console.error)
+            }
+        }
 
         function llenarInputs(resultado) {
             // console.log(resultado);
