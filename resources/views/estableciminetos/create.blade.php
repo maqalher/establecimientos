@@ -24,8 +24,13 @@ crossorigin="">
         <h1 class="text-center mt-4">Registrar Establecimiento</h1>
 
         <div class="mt-5 row justify-content-center">
-            <form class="col-md-9 col-xs-12 card card-body">
-
+            <form
+                class="col-md-9 col-xs-12 card card-body"
+                action="{{route('establecimiento.store')}}"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+            @csrf
                 <fieldset class="border p-4">
                     <legend class="text-primary">Nombre, Categoría e Imagen Principal</legend>
 
@@ -41,7 +46,7 @@ crossorigin="">
                         >
                         @error('nombre')
                             <div class="invalid-feedback">
-                                {{message}}
+                                {{$message}}
                             </div>
                         @enderror
                     </div>
@@ -75,7 +80,7 @@ crossorigin="">
                         >
                         @error('imagen_principal')
                             <div class="invalid-feedback">
-                                {{message}}
+                                {{$message}}
                             </div>
                         @enderror
                     </div>
@@ -114,7 +119,7 @@ crossorigin="">
                         >
                         @error('direccion')
                             <div class="invalid-feedback">
-                                {{message}}
+                                {{$message}}
                             </div>
                         @enderror
                     </div>
@@ -131,7 +136,7 @@ crossorigin="">
                         >
                         @error('colonia')
                             <div class="invalid-feedback">
-                                {{message}}
+                                {{$message}}
                             </div>
                         @enderror
                     </div>
