@@ -22,7 +22,8 @@ class APIController extends Controller
         // dd($categoria);
 
         // $estableciminetos = Establecimiento::where('categoria_id', $categoria->id)->get();
-        $estableciminetos = Establecimiento::where('categoria_id', $categoria->id)->with('categoria')->get(); // with trea los datos de la categoria con la que esta relacionada
+        $estableciminetos = Establecimiento::where('categoria_id', $categoria->id)->with('categoria')->take(3)->get();
+        // $estableciminetos = Establecimiento::where('categoria_id', $categoria->id)->with('categoria')->get(); // with trea los datos de la categoria con la que esta relacionada
 
         return response()->json($estableciminetos);
     }

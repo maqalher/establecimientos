@@ -1,19 +1,14 @@
 <template>
     <div>
-        <categoria-cafe></categoria-cafe>
-        <categoria-restaurant></categoria-restaurant>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
 
-    import CategoriaCafe from './CategoriaCafe';
-    import CategoriaRestaurant from './CategoriaRestaurant';
+    import store from '../store';
 
     export default {
-        components: {
-            CategoriaCafe,
-            CategoriaRestaurant
-        }
+        store
     }
 </script>
