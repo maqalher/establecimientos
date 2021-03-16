@@ -48,7 +48,7 @@ export default {
             this.lat = this.$store.state.establecimiento.lat;
             this.lng = this.$store.state.establecimiento.lng;
             this.center = latLng(this.lat, this.lng);
-        }, 300);
+        }, 3000);
     },
     computed: {
         establecimiento() {
