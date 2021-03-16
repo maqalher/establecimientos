@@ -8,12 +8,12 @@
                 <p class="mt-3">{{establecimiento.descripcion}}</p>
             </div>
 
-            <aside class="col-md-4 bg-primary">
+            <aside class="col-md-4">
                 <div>
                     <mapa-ubicacion></mapa-ubicacion>
                 </div>
 
-                <div class="p-4">
+                <div class="p-4 bg-primary">
                     <h2 class="text-center text-white mt-2 mb-4">Más Información</h2>
 
                     <p class="text-white mt-1">
