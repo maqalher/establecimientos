@@ -40,6 +40,14 @@ class APIController extends Controller
         return response()->json($estableciminetos);
     }
 
+    // Muestra todos los estableciminetos de una categoria
+    public function establecimientocategoria(Categoria $categoria)
+    {
+        $estableciminetos = Establecimiento::where('categoria_id', $categoria->id)->with('categoria')->get();
+
+        return response()->json($estableciminetos);
+    }
+
     // Muestra un establecimiento en espesifico
     public function show(Establecimiento $establecimiento){
 

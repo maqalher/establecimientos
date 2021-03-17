@@ -76,6 +76,18 @@ export default {
                 iconSize: [40,50]
             })
         }
+    },
+    watch: {
+        "$store.state.categoria" : function() {
+            // console.log('la categoria cambio');
+
+            axios.get('/api/' + this.$store.getters.obtenerCategoria)
+                .then(respuesta => {
+                    // console.log(respuesta);
+                    // Cambiar los establecimientos
+                    this.$store.commit('AGREGAR_ESTABLECIMIENTOS', respuesta.data);
+                })
+        }
     }
 }
 </script>
