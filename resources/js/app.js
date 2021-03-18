@@ -36,7 +36,7 @@ const app = new Vue({
 
 
 
-if(window.location.pathname === '/establecimiento/create'){
+if(window.location.pathname === '/establecimiento/create' || window.location.pathname === '/establecimiento/edit'){
     require('./mapa');
 }
 

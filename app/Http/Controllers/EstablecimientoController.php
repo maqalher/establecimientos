@@ -99,8 +99,15 @@ class EstablecimientoController extends Controller
      */
     public function edit(Establecimiento $establecimiento)
     {
-        //
-        return "desde edit";
+        // Consultar las Categorias
+        $categorias = Categoria::all();
+
+        // obtener el establecimiento (viene de la relacion)
+        $establecimiento = auth()->user()->establecimiento;
+        $establecimiento->apertura = date('H:i', strtotime($establecimiento->apertura));
+        $establecimiento->cierre = date('H:i', strtotime($establecimiento->cierre));
+
+        return view('estableciminetos.edit', compact('categorias', 'establecimiento'));
     }
 
     /**

@@ -83664,7 +83664,7 @@ var app = new Vue({
   router: _router__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
 
-if (window.location.pathname === '/establecimiento/create') {
+if (window.location.pathname === '/establecimiento/create' || window.location.pathname === '/establecimiento/edit') {
   __webpack_require__(/*! ./mapa */ "./resources/js/mapa.js");
 }
 
