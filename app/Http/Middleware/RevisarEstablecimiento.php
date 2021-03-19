@@ -18,9 +18,9 @@ class RevisarEstablecimiento
         // dd('desde m');
 
         // si el usuario ya tiene registrado un establecimineto
-        // if( Auth()->user()->establecimiento) {
-        //     return redirect('/establecimiento/edit');
-        // }
+        if( Auth()->user()->establecimiento) {
+            return redirect('/establecimiento/edit');
+        }
 
 
         return $next($request);
